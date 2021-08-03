@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sanchaek
+  profiles: default
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://myworkspace-1.co2rhj8bx4dt.ap-northeast-2.rds.amazonaws.com/sanchaek?useUnicode=true&characterEncoding=utf-8&rewriteBatchedStatements=true
+    username: admin
+    password: password123!
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
