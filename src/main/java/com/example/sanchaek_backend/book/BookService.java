@@ -1,6 +1,7 @@
 package com.example.sanchaek_backend.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -10,25 +11,28 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.google.gson.Gson;
+
 @Service
 public class BookService {
 
     private String serviceKey = "1e12bed8d420ee06e3d7ff3e16bb9247";
     private BookRepository repo;
 
-    public BookService() {
-
-    }
-
     @Autowired
     public BookService(BookRepository repo) {
+
         this.repo = repo;
     }
 
-    protected void getBook(String keyword) throws IOException {
+    @Scheduled(cron = "0 0 23 40 * *")
+    public void requestBook() throws IOException {
+        getBook("김영하");
+    }
+
+    private void getBook(String keyword) throws IOException {
 
         try {
-            keyword = "김영하";
             StringBuilder builder = new StringBuilder();
             builder.append("https://dapi.kakao.com/v3/search/book");
             builder.append("?query=" + keyword);
@@ -56,7 +60,15 @@ public class BookService {
             }
 
             br.close();
+
+
             System.out.println(response.toString());
+
+            String data = response.toString();
+
+            BookResponse bookResponse = new Gson().fromJson(data, BookResponse.class);
+
+            System.out.println(bookResponse);
 
         } catch (Exception e) {
             System.out.println(e);
