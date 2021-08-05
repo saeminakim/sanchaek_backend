@@ -1,5 +1,9 @@
 package com.example.sanchaek_backend.book;
 
+import com.google.gson.JsonObject;
+import org.json.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,7 +29,7 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 0 23 40 * *")
+    @Scheduled(cron = "0 18 14 * * *")
     public void requestBook() throws IOException {
         getBook("김영하");
     }
@@ -61,14 +65,20 @@ public class BookService {
 
             br.close();
 
-
-            System.out.println(response.toString());
-
             String data = response.toString();
 
-            BookResponse bookResponse = new Gson().fromJson(data, BookResponse.class);
 
-            System.out.println(bookResponse);
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(data);
+            JSONObject jsonObj = (JSONObject) obj;
+
+            String finalData = jsonObj.toString();
+
+            BookResponse res = new Gson().fromJson(finalData, BookResponse.class);
+
+            System.out.println("----res----");
+            System.out.println(res);
+
 
         } catch (Exception e) {
             System.out.println(e);

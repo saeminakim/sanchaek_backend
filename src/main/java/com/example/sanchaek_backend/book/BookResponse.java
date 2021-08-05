@@ -3,12 +3,18 @@ package com.example.sanchaek_backend.book;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data @NoArgsConstructor
 public class BookResponse {
-    private List<ResponseDocuments> item;
+    private ResponseData response;
+
+    @Data
+    @NoArgsConstructor
+    class ResponseData {
+        private ResponseDocuments documents;
+        private Meta meta;
+    }
 
     @Data
     @NoArgsConstructor
@@ -17,7 +23,7 @@ public class BookResponse {
         private String contents;
         private String url;
         private String isbn;
-        private Date dateTime;
+        private LocalDateTime dateTime;
         private String[] authors;
         private String publisher;
         private String[] translators;
@@ -25,5 +31,12 @@ public class BookResponse {
         private int salePrice;
         private String thumbnail;
         private String status;
+    }
+
+    @Data @NoArgsConstructor
+    class Meta {
+        private int totalCount;
+        private int pageableCount;
+        private boolean isEnd;
     }
 }

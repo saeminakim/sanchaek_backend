@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
@@ -22,7 +22,7 @@ public class Book {
     private String contents;
     private String url;
     private String isbn;
-    private Date dateTime;
+    private LocalDateTime dateTime;
     private String authors;
     private String publisher;
     private String translators;
