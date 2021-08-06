@@ -1,7 +1,5 @@
 package com.example.sanchaek_backend.book;
 
-import com.google.gson.JsonObject;
-import org.json.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,17 +26,18 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 18 14 * * *")
+    @Scheduled(cron = "0 39 14 * * *")
     public void requestBook() throws IOException {
-        getBook("김영하");
+        getBook("대성당");
     }
 
     private void getBook(String keyword) throws IOException {
 
         try {
             StringBuilder builder = new StringBuilder();
-            builder.append("https://dapi.kakao.com/v3/search/book");
-            builder.append("?query=" + keyword);
+            builder.append("https://dapi.kakao.com/v3/search/book")
+                    .append("?query=")
+                    .append(keyword);
 
             URL url = new URL(builder.toString());
 
@@ -56,7 +54,7 @@ public class BookService {
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
 
-            String inputLine;
+            String inputLine = null;
             StringBuffer response = new StringBuffer();
 
             while ((inputLine = br.readLine()) != null) {
@@ -67,7 +65,6 @@ public class BookService {
 
             String data = response.toString();
 
-
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(data);
             JSONObject jsonObj = (JSONObject) obj;
@@ -76,9 +73,17 @@ public class BookService {
 
             BookResponse res = new Gson().fromJson(finalData, BookResponse.class);
 
-            System.out.println("----res----");
-            System.out.println(res);
 
+//            for(BookResponse.ResponseDocuments item : res.getDocuments()) {
+//                Book book = new Book(item);
+//
+//                System.out.println(book);
+//
+//                String authors = book.getAuthors();
+////                System.out.println("authors");
+////                System.out.println(authors);
+//
+//            }
 
         } catch (Exception e) {
             System.out.println(e);

@@ -4,17 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data @NoArgsConstructor
 public class BookResponse {
-    private ResponseData response;
-
-    @Data
-    @NoArgsConstructor
-    class ResponseData {
-        private ResponseDocuments documents;
-        private Meta meta;
-    }
+    private ArrayList<ResponseDocuments> documents;
+    private Meta meta;
 
     @Data
     @NoArgsConstructor
