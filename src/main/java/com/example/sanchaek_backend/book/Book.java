@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
@@ -22,7 +23,7 @@ public class Book {
     private String contents;
     private String url;
     private String isbn;
-    private LocalDateTime dateTime;
+    private Date dateTime;
     private String authors;
     private String publisher;
     private String translators;
@@ -41,7 +42,7 @@ public class Book {
         this.dateTime = res.getDateTime();
         this.publisher = res.getPublisher();
         this.price = res.getPrice();
-        this.salePrice = res.getSalePrice();
+        this.salePrice = res.getSale_price();
         this.thumbnail = res.getThumbnail();
         this.status = res.getStatus();
     }

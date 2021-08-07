@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import com.google.gson.Gson;
 
@@ -26,18 +27,22 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 39 14 * * *")
+    @Scheduled(cron = "0 19 23 * * *")
     public void requestBook() throws IOException {
-        getBook("대성당");
+        getBook("김영하");
     }
 
     private void getBook(String keyword) throws IOException {
 
         try {
+
+            String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
+
+
             StringBuilder builder = new StringBuilder();
             builder.append("https://dapi.kakao.com/v3/search/book")
                     .append("?query=")
-                    .append(keyword);
+                    .append(encodedKeyword);
 
             URL url = new URL(builder.toString());
 
@@ -54,7 +59,7 @@ public class BookService {
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
 
-            String inputLine = null;
+            String inputLine;
             StringBuffer response = new StringBuffer();
 
             while ((inputLine = br.readLine()) != null) {
@@ -65,13 +70,14 @@ public class BookService {
 
             String data = response.toString();
 
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(data);
-            JSONObject jsonObj = (JSONObject) obj;
+            System.out.println("data");
+            System.out.println(data);
 
-            String finalData = jsonObj.toString();
+            BookResponse res = new Gson().fromJson(data, BookResponse.class);
 
-            BookResponse res = new Gson().fromJson(finalData, BookResponse.class);
+            System.out.println("res");
+            System.out.println(res);
+
 
 
 //            for(BookResponse.ResponseDocuments item : res.getDocuments()) {
