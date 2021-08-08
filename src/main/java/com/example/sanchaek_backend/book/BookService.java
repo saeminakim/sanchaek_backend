@@ -27,12 +27,12 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 11 13 * * *")
+    @Scheduled(cron = "0 45 21 * * *")
     public void requestBook() throws IOException {
-        getBook("김영하");
+        getBook("팩트풀니스");
     }
 
-    private void getBook(String keyword) throws IOException {
+    public void getBook(String keyword) throws IOException {
 
         try {
 
@@ -79,17 +79,25 @@ public class BookService {
             System.out.println(res);
 
 
+            for(BookResponse.ResponseDocuments item : res.getDocuments()) {
+                Book book = new Book(item);
 
-//            for(BookResponse.ResponseDocuments item : res.getDocuments()) {
-//                Book book = new Book(item);
-//
-//                System.out.println(book);
-//
-//                String authors = book.getAuthors();
-////                System.out.println("authors");
-////                System.out.println(authors);
-//
-//            }
+//                String str = item.getDateTime().toString();
+//                System.out.println(str);
+
+                String[] authors = item.getAuthors();
+                String allAuthors = "";
+
+                for (String author : authors) {
+                    allAuthors += author + " ";
+                }
+                book.setAuthors(allAuthors);
+
+                System.out.println("authors");
+                System.out.println("왜 3번이나 뜨냐?????? ");
+                System.out.println(book.getAuthors());
+
+            }
 
         } catch (Exception e) {
             System.out.println(e);

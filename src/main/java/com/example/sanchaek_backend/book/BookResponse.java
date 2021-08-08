@@ -1,5 +1,6 @@
 package com.example.sanchaek_backend.book;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +22,9 @@ public class BookResponse {
         private String contents;
         private String url;
         private String isbn;
-        private Timestamp dateTime;
+
+        @JsonDeserialize(using = DateHandler.class)
+        private Date dateTime;
         private String[] authors;
         private String publisher;
         private String[] translators;
