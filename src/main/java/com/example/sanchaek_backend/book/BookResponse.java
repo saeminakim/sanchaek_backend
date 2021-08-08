@@ -3,6 +3,7 @@ package com.example.sanchaek_backend.book;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class BookResponse {
         private String contents;
         private String url;
         private String isbn;
-        private Date dateTime;
+        private Timestamp dateTime;
         private String[] authors;
         private String publisher;
         private String[] translators;

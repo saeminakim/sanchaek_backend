@@ -27,7 +27,7 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 19 23 * * *")
+    @Scheduled(cron = "0 11 13 * * *")
     public void requestBook() throws IOException {
         getBook("김영하");
     }
