@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import com.google.gson.Gson;
 
@@ -27,7 +28,7 @@ public class BookService {
         this.repo = repo;
     }
 
-    @Scheduled(cron = "0 45 21 * * *")
+    @Scheduled(cron = "0 59 22 * * *")
     public void requestBook() throws IOException {
         getBook("팩트풀니스");
     }
@@ -82,20 +83,23 @@ public class BookService {
             for(BookResponse.ResponseDocuments item : res.getDocuments()) {
                 Book book = new Book(item);
 
-//                String str = item.getDateTime().toString();
-//                System.out.println(str);
 
-                String[] authors = item.getAuthors();
-                String allAuthors = "";
+                System.out.println(item.getDateTime());
 
-                for (String author : authors) {
-                    allAuthors += author + " ";
-                }
-                book.setAuthors(allAuthors);
+//                Date dateTime = item.getDateTime();
+//                System.out.println(dateTime);
 
-                System.out.println("authors");
-                System.out.println("왜 3번이나 뜨냐?????? ");
-                System.out.println(book.getAuthors());
+//                String[] authors = item.getAuthors();
+//                String allAuthors = "";
+//
+//                for (String author : authors) {
+//                    allAuthors += author + " ";
+//                }
+//                book.setAuthors(allAuthors);
+//
+//                System.out.println("authors");
+//                System.out.println("왜 3번이나 뜨냐?????? ");
+//                System.out.println(book.getAuthors());
 
             }
 

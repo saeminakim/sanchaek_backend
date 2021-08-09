@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
@@ -24,7 +25,7 @@ public class Book {
     private String contents;
     private String url;
     private String isbn;
-    private Date dateTime;
+    private OffsetDateTime dateTime;
     private String authors;
     private String publisher;
     private String translators;

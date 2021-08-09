@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,8 @@ public class BookResponse {
         private String url;
         private String isbn;
 
-        @JsonDeserialize(using = DateHandler.class)
-        private Date dateTime;
+//        @JsonDeserialize(using = DateHandler.class)
+        private OffsetDateTime dateTime;
         private String[] authors;
         private String publisher;
         private String[] translators;
