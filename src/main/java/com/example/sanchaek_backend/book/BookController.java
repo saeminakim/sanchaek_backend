@@ -12,17 +12,17 @@ import java.io.IOException;
 @RestController
 public class BookController {
 
-//    private BookRepository repo;
-//    private BookService service;
-//
-//    @Autowired
-//    BookController(BookRepository repo, BookService service) {
-//        this.repo = repo;
-//        this.service = service;
-//    }
-//
-//    @GetMapping(value = "/books")
-//    public Page<Book> getBookList(@RequestParam("query") String keyword) throws IOException {
-//        service.getBook(keyword);
-//    }
+    private BookRepository repo;
+    private BookService service;
+
+    @Autowired
+    BookController(BookRepository repo, BookService service) {
+        this.repo = repo;
+        this.service = service;
+    }
+
+    @GetMapping(value = "/books")
+    public void getBookList(@RequestParam("query") String keyword) throws IOException {
+        service.getBook(keyword);
+    }
 }

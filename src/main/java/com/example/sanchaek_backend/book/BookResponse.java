@@ -24,8 +24,8 @@ public class BookResponse {
         private String url;
         private String isbn;
 
-//        @JsonDeserialize(using = DateHandler.class)
-        private OffsetDateTime dateTime;
+        @JsonDeserialize(using = DateHandler.class)
+        private Date dateTime;
         private String[] authors;
         private String publisher;
         private String[] translators;

@@ -25,7 +25,7 @@ public class Book {
     private String contents;
     private String url;
     private String isbn;
-    private OffsetDateTime dateTime;
+    private Date dateTime;
     private String authors;
     private String publisher;
     private String translators;
