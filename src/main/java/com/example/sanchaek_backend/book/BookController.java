@@ -22,7 +22,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/books")
-    public void getBookList(@RequestParam("query") String keyword) throws IOException {
-        service.getBook(keyword);
+    public Book getBookList(@RequestParam("query") String keyword) throws IOException {
+        Book book = service.getBook(keyword);
+        return book;
     }
 }

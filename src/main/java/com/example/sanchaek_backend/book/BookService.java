@@ -31,7 +31,7 @@ public class BookService {
 //        getBook("팩트풀니스");
 //    }
 
-    public void getBook(String keyword) throws IOException {
+    public Book getBook(String keyword) throws IOException {
 
         try {
 
