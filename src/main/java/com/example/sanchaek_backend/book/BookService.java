@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -31,7 +32,10 @@ public class BookService {
 //        getBook("팩트풀니스");
 //    }
 
-    public Book getBook(String keyword) throws IOException {
+    public ArrayList<Book> getBook(String keyword) throws IOException {
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
 
         try {
 
@@ -95,11 +99,15 @@ public class BookService {
                     allAuthors += author + " ";
                 }
                 book.setAuthors(allAuthors);
+
+                books.add(book);
             }
 
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        return books;
 
     }
 }

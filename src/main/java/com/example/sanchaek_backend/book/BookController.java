@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @RestController
 public class BookController {
@@ -22,8 +23,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/books")
-    public Book getBookList(@RequestParam("query") String keyword) throws IOException {
-        Book book = service.getBook(keyword);
-        return book;
+    public ArrayList<Book> getBookList(@RequestParam("query") String keyword) throws IOException {
+        ArrayList<Book> books = service.getBook(keyword);
+        return books;
     }
 }
