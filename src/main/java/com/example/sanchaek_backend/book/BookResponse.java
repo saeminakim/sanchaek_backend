@@ -1,5 +1,6 @@
 package com.example.sanchaek_backend.book;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,14 +19,14 @@ public class BookResponse {
 
     @Data
     @NoArgsConstructor
-    class ResponseDocuments {
+    static class ResponseDocuments {
         private String title;
         private String contents;
         private String url;
         private String isbn;
 
-//        @JsonDeserialize(using = DateHandler.class)
-//        private Date dateTime;
+        @JsonDeserialize(using = DateHandler.class) //jackson
+        private Date datetime;
         private String[] authors;
         private String publisher;
         private String[] translators;
@@ -36,9 +37,12 @@ public class BookResponse {
     }
 
     @Data @NoArgsConstructor
-    class Meta {
+    static class Meta {
+        @JsonProperty("total_count")
         private int totalCount;
+        @JsonProperty("pageable_count")
         private int pageableCount;
+        @JsonProperty("is_end")
         private boolean isEnd;
     }
 }

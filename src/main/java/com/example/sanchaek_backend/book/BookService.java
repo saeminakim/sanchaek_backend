@@ -1,5 +1,7 @@
 package com.example.sanchaek_backend.book;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 @Service
+@Slf4j //로그 찍는거
 public class BookService {
 
     private String serviceKey = "1e12bed8d420ee06e3d7ff3e16bb9247";
@@ -73,41 +76,33 @@ public class BookService {
             
             String data = response.toString();
 
-            System.out.println("data");
-            System.out.println(data);
-            
-            // 여기에서 data를 BookResponse class로 바꿔줄 때 dateTime이 안 들어감
-
-            JSONParser parser = new JSONParser();
-            JSONObject obj = (JSONObject) parser.parse(data);
-            Object date = obj.get("documents");
-            System.out.println(date);
-
-            BookResponse res = new Gson().fromJson(data, BookResponse.class);
-
-            System.out.println("res");
-            System.out.println(res);
+            ObjectMapper objectMapper = new ObjectMapper();
+            BookResponse res = objectMapper.readValue(data, BookResponse.class);
 
 
             for(BookResponse.ResponseDocuments item : res.getDocuments()) {
                 Book book = new Book(item);
 
-                String[] authors = item.getAuthors();
-                String allAuthors = "";
-
-                for (String author : authors) {
-                    allAuthors += author + " ";
-                }
-                book.setAuthors(allAuthors);
+                book.setAuthors(mergeAuthors(item));
 
                 books.add(book);
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            log.warn("API 호출 에러나따ㅏㅏㅏㅏㅏ", e);
         }
 
         return books;
 
+    }
+
+    private String mergeAuthors(BookResponse.ResponseDocuments item) {
+        String[] authors = item.getAuthors();
+        StringBuilder allAuthors = new StringBuilder();
+
+        for (String author : authors) {
+            allAuthors.append(author).append(" ");
+        }
+        return allAuthors.toString();
     }
 }

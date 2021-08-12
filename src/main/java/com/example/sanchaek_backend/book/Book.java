@@ -25,7 +25,7 @@ public class Book {
     private String contents;
     private String url;
     private String isbn;
-//    private Date dateTime;
+    private Date datetime;
     private String authors;
     private String publisher;
     private String translators;
@@ -41,7 +41,7 @@ public class Book {
         this.contents = res.getContents();
         this.url = res.getUrl();
         this.isbn = res.getIsbn();
-//        this.dateTime = res.getDateTime();
+        this.datetime = res.getDatetime();
         this.publisher = res.getPublisher();
         this.price = res.getPrice();
         this.salePrice = res.getSale_price();
