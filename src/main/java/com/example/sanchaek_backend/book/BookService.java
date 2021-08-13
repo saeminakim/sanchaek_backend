@@ -31,65 +31,79 @@ public class BookService {
         this.repo = repo;
     }
 
-//    public void requestBook() throws IOException {
-//        getBook("팩트풀니스");
-//    }
-
     public ArrayList<Book> getBook(String keyword) throws IOException {
 
         ArrayList<Book> books = new ArrayList<Book>();
 
+        boolean isEnd;
+        int page = 1;
 
-        try {
+        while (true) {
+            try {
 
-            String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
+                String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
 
 
-            StringBuilder builder = new StringBuilder();
-            builder.append("https://dapi.kakao.com/v3/search/book")
-                    .append("?query=")
-                    .append(encodedKeyword);
+                StringBuilder builder = new StringBuilder();
+                builder.append("https://dapi.kakao.com/v3/search/book")
+                        .append("?query=")
+                        .append(encodedKeyword)
+                        .append("&page=")
+                        .append(page);
 
-            URL url = new URL(builder.toString());
+                URL url = new URL(builder.toString());
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "KakaoAK " + serviceKey);
-            int responseCode = con.getResponseCode();
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("Authorization", "KakaoAK " + serviceKey);
+                int responseCode = con.getResponseCode();
 
-            BufferedReader br;
+                BufferedReader br;
 
-            if (responseCode == 200) {
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                if (responseCode == 200) {
+                    br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                } else {
+                    br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                }
+
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = br.readLine()) != null) {
+                    response.append(inputLine);
+                }
+
+                br.close();
+
+                String data = response.toString();
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                BookResponse res = objectMapper.readValue(data, BookResponse.class);
+
+                isEnd = res.getMeta().isEnd();
+
+
+                for (BookResponse.ResponseDocuments item : res.getDocuments()) {
+                    Book book = new Book(item);
+
+                    book.setAuthors(mergeAuthors(item));
+
+                    books.add(book);
+                }
+
+                page += 1;
+
+                System.out.println("page : " + page);
+                System.out.println("isEnd : " + isEnd);
+
+                if(!isEnd) {
+                    break;
+                }
+
+
+            } catch (IOException e) {
+                log.warn("API 호출 에러", e);
             }
-
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-
-            br.close();
-            
-            String data = response.toString();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            BookResponse res = objectMapper.readValue(data, BookResponse.class);
-
-
-            for(BookResponse.ResponseDocuments item : res.getDocuments()) {
-                Book book = new Book(item);
-
-                book.setAuthors(mergeAuthors(item));
-
-                books.add(book);
-            }
-
-        } catch (Exception e) {
-            log.warn("API 호출 에러나따ㅏㅏㅏㅏㅏ", e);
         }
 
         return books;
