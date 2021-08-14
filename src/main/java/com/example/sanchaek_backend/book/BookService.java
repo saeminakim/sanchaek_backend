@@ -41,7 +41,7 @@ public class BookService {
 
         if (!isEnd) {
 
-//            try {
+            try {
 
                 String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
 
@@ -50,6 +50,7 @@ public class BookService {
                 builder.append("https://dapi.kakao.com/v3/search/book")
                         .append("?query=")
                         .append(encodedKeyword)
+                        .append("&size=50")
                         .append("&page=")
                         .append(page);
 
@@ -99,9 +100,9 @@ public class BookService {
                 System.out.println("isEnd : " + isEnd);
 
 
-//            } catch (IOException e) {
-//                log.warn("API 호출 에러", e);
-//            }
+            } catch (IOException e) {
+                log.warn("API 호출 에러", e);
+            }
 
         }
 
