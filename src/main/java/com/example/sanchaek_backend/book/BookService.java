@@ -35,11 +35,13 @@ public class BookService {
 
         ArrayList<Book> books = new ArrayList<Book>();
 
-        boolean isEnd;
+        boolean isEnd = false;
         int page = 1;
 
-        while (true) {
-            try {
+
+        if (!isEnd) {
+
+//            try {
 
                 String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
 
@@ -96,14 +98,11 @@ public class BookService {
                 System.out.println("page : " + page);
                 System.out.println("isEnd : " + isEnd);
 
-                if(!isEnd) {
-                    break;
-                }
 
+//            } catch (IOException e) {
+//                log.warn("API 호출 에러", e);
+//            }
 
-            } catch (IOException e) {
-                log.warn("API 호출 에러", e);
-            }
         }
 
         return books;
