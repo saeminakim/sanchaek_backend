@@ -35,11 +35,11 @@ public class BookService {
 
         ArrayList<Book> books = new ArrayList<Book>();
 
-        boolean isEnd = false;
+        boolean isEnd;
         int page = 1;
 
 
-        if (!isEnd) {
+        while (true) {
 
             try {
 
@@ -96,8 +96,9 @@ public class BookService {
 
                 page += 1;
 
-                System.out.println("page : " + page);
-                System.out.println("isEnd : " + isEnd);
+                if(isEnd) {
+                    break;
+                }
 
 
             } catch (IOException e) {
