@@ -1,9 +1,8 @@
 package com.example.sanchaek_backend.book;
 
+import com.example.sanchaek_backend.user.WishBookRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +13,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.Gson;
 
 @Service
 @Slf4j //로그 찍는거
 public class BookService {
 
     private String serviceKey = "1e12bed8d420ee06e3d7ff3e16bb9247";
-    private BookRepository repo;
+    private WishBookRepository repo;
 
     @Autowired
-    public BookService(BookRepository repo) {
+    public BookService(WishBookRepository repo) {
 
         this.repo = repo;
     }
