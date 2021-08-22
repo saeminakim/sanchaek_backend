@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class BookService {
 
     private String serviceKey = "1e12bed8d420ee06e3d7ff3e16bb9247";
-    private WishBookRepository repo;
+//    private WishBookRepository repo;
 
-    @Autowired
-    public BookService(WishBookRepository repo) {
-
-        this.repo = repo;
-    }
+//    @Autowired
+//    public BookService(WishBookRepository repo) {
+//
+//        this.repo = repo;
+//    }
 
     public ArrayList<Book> getBook(String keyword) throws IOException {
 
@@ -86,6 +86,8 @@ public class BookService {
                     Book book = new Book(item);
 
                     book.setAuthors(mergeAuthors(item));
+                    book.setIsSaved(false);
+                    book.setIsRead(false);
 
                     books.add(book);
                 }

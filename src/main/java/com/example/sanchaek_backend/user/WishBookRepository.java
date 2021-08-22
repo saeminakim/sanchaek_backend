@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface WishBookRepository extends JpaRepository<Book, Integer> {
 
-    public List<Book> findAllBySaved(boolean isSaved);
+    public List<Book> findAll();
 }

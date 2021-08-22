@@ -33,8 +33,8 @@ public class Book {
     private int salePrice;
     private String thumbnail;
     private String status;
-    private boolean isSaved;
-    private boolean isRead;
+    private boolean isIsSaved;
+    private boolean isIsRead;
 
     public Book(BookResponse.ResponseDocuments res) {
 

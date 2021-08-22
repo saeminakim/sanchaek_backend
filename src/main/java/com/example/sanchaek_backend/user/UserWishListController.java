@@ -1,6 +1,7 @@
 package com.example.sanchaek_backend.user;
 
 import com.example.sanchaek_backend.book.Book;
+import com.example.sanchaek_backend.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,13 +21,13 @@ public class UserWishListController {
 
     @GetMapping("/wishlist")
     public List<Book> getWishList() {
-        return repo.findAllBySaved(true);
+        return repo.findAll();
     }
 
     @PostMapping("/wishlist")
     public void AddWishList(@RequestBody Book book) {
-        book.setSaved(true);
-        book.setRead(false);
+//        book.setIsSaved(true);
+//        book.setIsRead(false);
         repo.save(book);
     }
 }
