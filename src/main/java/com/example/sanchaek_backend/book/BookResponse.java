@@ -30,8 +30,8 @@ public class BookResponse {
         private String[] authors;
         private String publisher;
         private String[] translators;
-        private int price;
-        private int sale_price;
+        private String price;
+        private String sale_price;
         private String thumbnail;
         private String status;
     }

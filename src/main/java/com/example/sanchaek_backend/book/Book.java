@@ -1,5 +1,6 @@
 package com.example.sanchaek_backend.book;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,12 +30,14 @@ public class Book {
     private String authors;
     private String publisher;
     private String translators;
-    private int price;
-    private int salePrice;
+    private String price;
+    private String salePrice;
     private String thumbnail;
     private String status;
-    private boolean isIsSaved;
-    private boolean isIsRead;
+    @JsonProperty(value = "isSaved")
+    private boolean isSaved;
+    @JsonProperty(value = "isRead")
+    private boolean isRead;
 
     public Book(BookResponse.ResponseDocuments res) {
 

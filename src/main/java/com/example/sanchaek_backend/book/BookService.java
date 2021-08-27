@@ -86,8 +86,16 @@ public class BookService {
                     Book book = new Book(item);
 
                     book.setAuthors(mergeAuthors(item));
-                    book.setIsSaved(false);
-                    book.setIsRead(false);
+
+                    if (item.getTranslators().length > 0) {
+                        book.setTranslators(mergeTranslators(item));
+                    }
+
+                    book.setPrice(book.getPrice().toString());
+                    book.setSalePrice(book.getSalePrice().toString());
+
+                    book.setSaved(false);
+                    book.setRead(false);
 
                     books.add(book);
                 }
@@ -117,5 +125,15 @@ public class BookService {
             allAuthors.append(author).append(" ");
         }
         return allAuthors.toString();
+    }
+
+    private String mergeTranslators(BookResponse.ResponseDocuments item) {
+        String[] translators = item.getTranslators();
+        StringBuilder allTranslators = new StringBuilder();
+
+        for (String translator : translators) {
+            allTranslators.append(translator).append(" ");
+        }
+        return allTranslators.toString();
     }
 }

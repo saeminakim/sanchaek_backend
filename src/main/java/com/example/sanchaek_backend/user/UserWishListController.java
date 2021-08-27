@@ -28,6 +28,7 @@ public class UserWishListController {
     public void AddWishList(@RequestBody Book book) {
 //        book.setIsSaved(true);
 //        book.setIsRead(false);
+        System.out.println(book.toString());
         repo.save(book);
     }
 }
