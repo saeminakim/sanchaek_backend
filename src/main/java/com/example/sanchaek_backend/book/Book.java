@@ -48,7 +48,7 @@ public class Book {
         this.datetime = res.getDatetime();
         this.publisher = res.getPublisher();
         this.price = res.getPrice();
-        this.salePrice = res.getSale_price();
+        this.salePrice = res.getSalePrice();
         this.thumbnail = res.getThumbnail();
         this.status = res.getStatus();
     }

@@ -31,7 +31,8 @@ public class BookResponse {
         private String publisher;
         private String[] translators;
         private String price;
-        private String sale_price;
+        @JsonProperty("sale_price")
+        private String salePrice;
         private String thumbnail;
         private String status;
     }

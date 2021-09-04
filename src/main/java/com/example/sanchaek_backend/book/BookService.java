@@ -91,8 +91,8 @@ public class BookService {
                         book.setTranslators(mergeTranslators(item));
                     }
 
-                    book.setPrice(book.getPrice().toString());
-                    book.setSalePrice(book.getSalePrice().toString());
+                    book.setPrice(item.getPrice().toString());
+                    book.setSalePrice(item.getSalePrice().toString());
 
                     book.setSaved(false);
                     book.setRead(false);
