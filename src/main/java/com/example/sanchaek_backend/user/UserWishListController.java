@@ -26,7 +26,7 @@ public class UserWishListController {
 
     @PostMapping("/wishlist")
     public void AddWishList(@RequestBody Book book) {
-//        book.setIsSaved(true);
+        book.setSaved(true);
 //        book.setIsRead(false);
         System.out.println(book.toString());
         repo.save(book);
